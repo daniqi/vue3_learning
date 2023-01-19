@@ -1,6 +1,6 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <HelloWorld msg="Kijk ook eens naar Nuxt3. Werkt wel nice met Vue3"/>
 </template>
 
 <script>
