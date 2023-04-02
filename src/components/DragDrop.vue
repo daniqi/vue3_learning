@@ -1,23 +1,28 @@
 <template>
   <div>
-    <div id="drag-area">
-      <form class="my-form">
-        <v-list>
-          <v-list-item v-for="file in uploadFiles" :key="file.name" :title="file.name"></v-list-item>
-
-          {{ setLoading }}
-        </v-list>
-      </form>
-    </div>
-
+    <v-container>
+      <div id="drag-area">
+        <form class="my-form">
+          <v-list>
+            <v-list-item v-for="file in uploadFiles" :key="file.name" :title="file.name"></v-list-item>
+          </v-list>
+        </form>
+      </div>
+    </v-container>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue"
-import { onMounted } from 'vue'
+import { ref, onMounted, defineProps } from 'vue'
+
+// props example
+const props = defineProps(["msg"])
+console.log(props.msg)
+
+// TODO: upload knop toevoegen.
 
 let uploadFiles = ref([]);
+let dragArea = ref(undefined);
 
 const handleDrop = (e) => {
   const dt = e.dataTransfer
@@ -26,13 +31,11 @@ const handleDrop = (e) => {
 }
 
 const highlight = () => {
-  const dragArea = document.getElementById("drag-area")
-  dragArea.classList.add('highlight')
+  dragArea.value.classList.add('highlight')
 }
 
 const unhighlight = () => {
-  const dragArea = document.getElementById("drag-area")
-  dragArea.classList.remove('highlight')
+  dragArea.value.classList.remove('highlight')
 }
 
 const preventDefaults = (e) => {
@@ -41,22 +44,23 @@ const preventDefaults = (e) => {
 }
 
 onMounted(() => {
-  let dragArea = document.getElementById("drag-area");
+  // set properties
+  dragArea.value = document.getElementById("drag-area");
 
   ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    dragArea.addEventListener(eventName, preventDefaults, false)
+    dragArea.value.addEventListener(eventName, preventDefaults, false)
     document.body.addEventListener(eventName, preventDefaults, false)
   });
 
   ['dragenter', 'dragover'].forEach(eventName => {
-    dragArea.addEventListener(eventName, highlight, false)
+    dragArea.value.addEventListener(eventName, highlight, false)
   });
 
   ['dragleave', 'drop'].forEach(eventName => {
-    dragArea.addEventListener(eventName, unhighlight, false)
+    dragArea.value.addEventListener(eventName, unhighlight, false)
   })
 
-  dragArea.addEventListener('drop', handleDrop, false)
+  dragArea.value.addEventListener('drop', handleDrop, false)
 })
 
 </script>

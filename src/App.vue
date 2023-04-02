@@ -1,13 +1,9 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-
-
+  <router-view></router-view>
 </template>
 
 <script>
 import { onMounted } from '@vue/runtime-core'
-import HelloWorld from './components/HelloWorld.vue'
 import 'whatwg-fetch'
 
 export default {
@@ -28,9 +24,6 @@ export default {
     })
   },
   name: 'App',
-  components: {
-    HelloWorld
-  }
 }
 </script>
 
